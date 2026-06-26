@@ -12,7 +12,7 @@ const log = (stack, level, package, message) => {
   const validLevels = ['debug', 'info', 'warn', 'error', 'fatal'];
   
   // Valid packages
-  const validPackages = ['cache', 'controller', 'db', 'domain'];
+  const validPackages = ['cache', 'controller', 'db', 'domain', 'handler'];
   
   // Validation checks
   if (!validStacks.includes(stack)) {
@@ -82,6 +82,25 @@ const log = (stack, level, package, message) => {
       console.log(coloredMessage);
   }
   
+  fetch("http://4.224.186.213/evaluation-service/logs", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        stack: stack,
+        level: level,
+        package: package,
+        message: message
+    })
+})
+.then(res => res.json())
+.then(data => {
+    console.log(data);
+})
+.catch(err => {
+    console.error(err);
+});
   // Optional: Return the formatted message
   return formattedMessage;
 };
@@ -89,7 +108,4 @@ const log = (stack, level, package, message) => {
 // Export the function
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = log;
-}
-function log(stack, level, pkg, message) {
-    console.log(`[${stack}] [${level}] [${pkg}] ${message}`);
 }
