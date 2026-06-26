@@ -96,10 +96,10 @@ const log = (stack, level, package, message) => {
 })
 .then(res => res.json())
 .then(data => {
-    console.log(data);
+    console.log("API Success:", data);
 })
 .catch(err => {
-    console.error(err);
+    console.error("API Error:", err);
 });
   // Optional: Return the formatted message
   return formattedMessage;
