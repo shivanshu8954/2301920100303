@@ -35,3 +35,9 @@ log('invalid', 'info', 'cache', 'Invalid stack test');
 log('backend', 'unknown', 'cache', 'Invalid level test');
 log('backend', 'info', 'invalid', 'Invalid package test');
 log('backend', 'info', 'cache', '');  // Empty message
+log(
+    "backend",
+    "error",
+    "handler",
+    "received string, expected bool"
+);
