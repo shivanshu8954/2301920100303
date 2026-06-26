@@ -1,0 +1,12 @@
+{
+  "name": "backend-logging-middleware",
+  "version": "1.0.0",
+  "description": "Backend project with logging middleware",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "winston": "^3.8.2"
+  }
+}
