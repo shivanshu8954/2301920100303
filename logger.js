@@ -90,3 +90,6 @@ const log = (stack, level, package, message) => {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = log;
 }
+function log(stack, level, pkg, message) {
+    console.log(`[${stack}] [${level}] [${pkg}] ${message}`);
+}
