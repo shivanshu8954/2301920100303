@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Logger Test</title>
+    <style>
+        body { font-family: monospace; background: #1a1a2e; color: #eee; padding: 20px; }
+        button { padding: 10px 20px; font-size: 16px; margin: 5px; cursor: pointer; border: none; border-radius: 5px; }
+        .debug { background: #00bcd4; } .info { background: #4caf50; }
+        .warn { background: #ff9800; } .error { background: #f44336; }
+        .fatal { background: #9c27b0; color: white; }
+        #output { margin-top: 20px; background: #16213e; padding: 15px; border-radius: 8px; max-height: 500px; overflow-y: auto; }
+        .log-entry { padding: 5px; border-bottom: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <h2>📋 Custom Logger</h2>
+    
+    <div>
+        <h3>Test Buttons</h3>
+        <button class="debug" onclick="log('backend','debug','cache','Debug message from cache')">Debug</button>
+        <button class="info" onclick="log('backend','info','controller','Info message from controller')">Info</button>
+        <button class="warn" onclick="log('frontend','warn','domain','Warning from domain layer')">Warn</button>
+        <button class="error" onclick="log('backend','error','db','DB connection error!')">Error</button>
+        <button class="fatal" onclick="log('frontend','fatal','controller','Fatal: System crash!')">Fatal</button>
+    </div>
+
+    <div id="output">
+        <div style="color:#888;">Console mein logs dekhne ke liye F12 press karein aur Console tab check karein</div>
+    </div>
+
+    <script src="logger.js"></script>
+    <script>
+        // Override console.log to also show in HTML
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        console.log = function(msg) {
+            originalLog.apply(console, arguments);
+            const output = document.getElementById('output');
+            output.innerHTML = '<div class="log-entry">📘 ' + msg + '</div>' + output.innerHTML;
+        };
+        
+        console.error = function(msg) {
+            originalError.apply(console, arguments);
+            const output = document.getElementById('output');
+            output.innerHTML = '<div class="log-entry" style="color:#ff4444;">❌ ' + msg + '</div>' + output.innerHTML;
+        };
+        
+        console.warn = function(msg) {
+            originalWarn.apply(console, arguments);
+            const output = document.getElementById('output');
+            output.innerHTML = '<div class="log-entry" style="color:#ffaa00;">⚠️ ' + msg + '</div>' + output.innerHTML;
+        };
+    </script>
+</body>
+</html>
